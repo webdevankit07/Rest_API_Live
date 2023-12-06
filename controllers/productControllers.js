@@ -1,6 +1,6 @@
 const { Product } = require('../models/productModel');
 
-const getALLProducts = async (req, res) => {
+exports.getALLProducts = async (req, res) => {
     try {
         const { search, brand, title, category, sort, select, page, limit } = req.query;
         const queryObject = {};
@@ -48,4 +48,13 @@ const getALLProducts = async (req, res) => {
     }
 };
 
-module.exports = { getALLProducts };
+exports.getProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+        res.json(product);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error);
+    }
+};
