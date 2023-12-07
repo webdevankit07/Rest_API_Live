@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 3000;
 const { productRouters } = require('./routes/productRoutes');
 
 //! ............ Middleware .......... //
+// app.use(cors());
+app.use(express.json());
 app.use('/api/v1/products', productRouters);
 
 //! ............ App Listenig Function .......... //
