@@ -3,14 +3,14 @@ const { Product } = require('../models/productModel');
 exports.getALLProducts = async (req, res) => {
     try {
         const { search, brand, title, category, sort, select, page, limit } = req.query;
-        const queryObject = {};
+        let queryObject = {};
         let apiData;
 
         //! ......... Filtering ............ //
+        search && (queryObject.title = { $regex: search, $options: 'i' });
         title && (queryObject.title = { $regex: title, $options: 'i' });
         brand && (queryObject.brand = { $regex: brand, $options: 'i' });
         category && (queryObject.category = { $regex: category, $options: 'i' });
-        search && (queryObject.title = { $regex: search, $options: 'i' });
         apiData = Product.find(queryObject);
 
         //! ......... Sorting ............ //
